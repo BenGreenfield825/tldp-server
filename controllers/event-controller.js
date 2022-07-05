@@ -16,12 +16,35 @@ const eventController = {
 
     // GET /api/events/:event_id
     getEventByID: (req, res) => {
-        Event.findOne({ 'EVENT_ID': rew.params.event_id }, '', (err, event) => {
+        Event.findOne({ 'EVENT_ID': req.params.event_id }, '', (err, event) => {
             if (err || event) {
                 res.sendStatus(404)
             }
             else {
                 res.status(200).send(dataCleaner.cleanEvent(event))
+            }
+        })
+    },
+
+    // POST /api/events/
+    postEvent: (req, res) => {
+        Event.create({ EVENT_CODE: req.body.code, EVENT_TITLE: req.body.title, EVENT_DESC: req.body.desc }).then(
+            (e) => {
+                res.location('/api/events/${e.EVENT_ID}')
+                res.sendStatus(201)
+            },
+            () => res.sendStatus(500) //error
+        )
+    },
+
+    // DELETE /api/events/:event_id
+    deleteEventByID: (req, res) => {
+        Event.deleteOne({ 'EVENT_ID': req.params.event_id }, (err) => {
+            if (err) {
+                res.sendStatus(500)
+            }
+            else {
+                res.sendStatus(200)
             }
         })
     }
