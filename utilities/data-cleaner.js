@@ -1,5 +1,5 @@
 import Customer from '../models/customer.js'
-import Event from '../models/event.js'
+import registrationRouter from '../routes/registration-routes.js'
 
 const dataCleaner = {
 
@@ -10,7 +10,7 @@ const dataCleaner = {
       password: customer.PASSWORD,
       email: customer.EMAIL 
     }
-  },  
+  }, 
 
   cleanCustomers: ( customers ) => {
     var results = []
@@ -23,19 +23,39 @@ const dataCleaner = {
   cleanEvent: ( event ) => {
     return {
       id: event.EVENT_ID,
-      eventCode: event.EVENT_CODE,
-      title: event.EVENT_TITLE,
-      description: event.EVENT_DESC
+      code: event.EVENT_CODE,
+      title: event.TITLE,
+      description: event.DESCRIPTION
     }
-  },
+  }, 
 
   cleanEvents: ( events ) => {
-    var eventResults = []
-    for(const e in events) {
-      eventResults.push(dataCleaner.cleanEvent(events[e]))
+    var results = []
+    for( const e in events) {
+      results.push(dataCleaner.cleanEvent(events[e]))
     }
-    return eventResults
-  }
+    return results
+  },
+
+  cleanRegistration: ( registration ) => {
+    return {
+      id: registration.REGISTRATION_ID,
+      event_id: registration.EVENT_ID,
+      customer_id: registration.CUSTOMER_ID,
+      registration_date: registration.REGISTRATION_DATE,
+      notes: registration.NOTES
+    }
+  }, 
+
+  cleanRegistrations: ( registrations ) => {
+    var results = []
+    for( const r in registrations) {
+      results.push(dataCleaner.cleanRegistration(registrations[r]))
+    }
+    return results
+  } 
+
+
 
 }
 

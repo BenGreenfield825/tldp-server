@@ -4,7 +4,7 @@ import dataCleaner from '../utilities/data-cleaner.js'
 const eventController = {
     // GET /api/events/
     getAllEvents: function (req, res) {
-        Event.find({}, function (err, events) {
+        Event.find({}, '', function (err, events) {
             if (err || !events || events.length == 0) {
                 res.sendStatus(404)
             }
@@ -28,9 +28,9 @@ const eventController = {
 
     // POST /api/events/
     postEvent: (req, res) => {
-        Event.create({ EVENT_CODE: req.body.code, EVENT_TITLE: req.body.title, EVENT_DESC: req.body.desc }).then(
+        Event.create({ EVENT_CODE: req.body.code, TITLE: req.body.title, DESCRIPTION: req.body.description }).then(
             (e) => {
-                res.location('/api/events/${e.EVENT_ID}')
+                res.location(`/api/events/${e.EVENT_ID}`)
                 res.sendStatus(201)
             },
             () => res.sendStatus(500) //error

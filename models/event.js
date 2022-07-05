@@ -6,9 +6,9 @@ const { Schema, model } = mongoose
 
 const eventSchema = new Schema({
   EVENT_ID: Number,
-  EVENT_CODE: Number,
-  EVENT_TITLE: String,
-  EVENT_DESC: String
+  EVENT_CODE: String,
+  TITLE: String,
+  DESCRIPTION: String
 })
 
 eventSchema.plugin(sequence, {inc_field: 'EVENT_ID'});

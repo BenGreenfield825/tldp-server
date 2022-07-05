@@ -1,7 +1,22 @@
-// GET /api/registrations
+import express from 'express'
+import registrationController from '../controllers/registration-controller.js'
+var registrationRouter = express.Router()
 
-// GET /api/registrations/:registrationID
+registrationRouter.get('/', function(req, res) {
+  registrationController.getAllRegistrations(req,res)
+})
 
-// POST /api/registration
+registrationRouter.get('/:registrationID', function(req, res) {
+  registrationController.getRegistrationById(req, res)
+})
 
-// DELETE /api/registrations/:registrationID
+registrationRouter.post('/', function(req, res) {
+  registrationController.postRegistration(req, res)
+})
+
+registrationRouter.delete('/:registrationID', function(req, res) {
+  registrationController.deleteRegistrationById(req, res)
+})
+
+export default registrationRouter
+
